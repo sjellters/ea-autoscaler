@@ -14,7 +14,7 @@ import java.util.List;
 @Component
 public class ScalingCsvWriter {
 
-    public void writeToCsv(Path filePath, List<ScalingConfiguration> configs, boolean append, boolean includeHeader) {
+    public void writeToCsv(Path filePath, List<ScalingConfiguration> configs, Integer generation, boolean append, boolean includeHeader) {
         try {
             Files.createDirectories(filePath.getParent());
 
@@ -36,7 +36,7 @@ public class ScalingCsvWriter {
                     double[] o = sc.getObjectives();
 
                     StringBuilder row = new StringBuilder();
-                    row.append(i + 1).append(",")
+                    row.append(generation != null ? generation : i + 1).append(",")
                             .append(sc.getMinReplicas()).append(",")
                             .append(sc.getMaxReplicas()).append(",")
                             .append(String.format("%.4f", sc.getCpuThreshold())).append(",")

@@ -27,7 +27,6 @@ public class KubernetesScalingService {
         log.info("🔄 Waiting for pods to reach desired replica count: {}", config.getMinReplicas());
         try {
             deploymentMonitor.waitForDesiredReplicas(config.getMinReplicas(), 180, 2000);
-            Thread.sleep(5000); // Optional stabilization
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             log.error("🛑 Scaling wait interrupted", e);

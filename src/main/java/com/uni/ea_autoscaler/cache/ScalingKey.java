@@ -39,7 +39,14 @@ public class ScalingKey {
 
     @Override
     public int hashCode() {
-        return Objects.hash(minReplicas, maxReplicas, cpuThreshold, memoryThreshold, cooldownSeconds, cpuRequest, memoryRequest);
+        return Objects.hash(
+                minReplicas,
+                maxReplicas,
+                cpuThreshold,
+                memoryThreshold,
+                cooldownSeconds,
+                cpuRequest,
+                memoryRequest);
     }
 
     @Override

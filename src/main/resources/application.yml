@@ -7,8 +7,8 @@ spring:
       port: 6379
       timeout: 60000
 evolution:
-  populationSize: 3
-  maxGenerations: 2
+  populationSize: 10
+  maxGenerations: 10
   mutationRate: 0.3
   outputDir: output
 evaluation:
@@ -23,6 +23,9 @@ k8s:
   hpaName: nginx-hpa
   namespace: tesis-simulation
 selection:
-  tournamentSize: 3
+  tournamentSize: 2
 nsga3:
   referencePointDivisions: 12
+monitor:
+  namespace: tesis-simulation
+  labelSelector: app=nginx

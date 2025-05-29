@@ -12,7 +12,7 @@ import java.util.*;
 @RequiredArgsConstructor
 public class NichingSelector {
 
-    public List<ScalingConfiguration> selectFromLastFront(
+    public List<ScalingConfiguration> selectWithNiching(
             List<ScalingConfiguration> lastFront,
             List<double[]> referencePoints,
             int remainingSlots

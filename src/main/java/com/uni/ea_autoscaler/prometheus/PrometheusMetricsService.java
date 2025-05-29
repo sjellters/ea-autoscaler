@@ -16,12 +16,11 @@ public class PrometheusMetricsService {
         this.prometheusClient = prometheusClient;
     }
 
-    public double averageRange(String promQL) {
-        String end = String.valueOf(Instant.now().getEpochSecond());
-        String start = String.valueOf(Instant.now().minusSeconds(300).getEpochSecond());
-        String step = "15s";
+    public double averageRange(String promQL, Instant start, Instant end, String step) {
+        String startEpoch = String.valueOf(start.getEpochSecond());
+        String endEpoch = String.valueOf(end.getEpochSecond());
 
-        List<List<String>> values = prometheusClient.queryRangeMetric(promQL, start, end, step);
+        List<List<String>> values = prometheusClient.queryRangeMetric(promQL, startEpoch, endEpoch, step);
         return values.stream()
                 .mapToDouble(point -> Double.parseDouble(point.get(1)))
                 .average()

@@ -16,6 +16,6 @@ public class EvolutionCsvExporter {
     }
 
     public void export(List<ScalingConfiguration> bestIndividuals, Path outputFile) {
-        scalingCsvWriter.writeToCsv(outputFile, bestIndividuals, false, true);
+        scalingCsvWriter.writeToCsv(outputFile, bestIndividuals, null, false, true);
     }
 }

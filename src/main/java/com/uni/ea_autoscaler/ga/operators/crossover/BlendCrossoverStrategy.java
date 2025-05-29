@@ -7,10 +7,12 @@ import com.uni.ea_autoscaler.ga.util.ThresholdUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Component("blendCrossover")
 public class BlendCrossoverStrategy implements CrossoverStrategy {
 
+    private static final double BLX_ALPHA = 0.3;
     private final ScalingConfigurationValidator validator;
     private final Random random = new Random();
 
@@ -22,6 +24,10 @@ public class BlendCrossoverStrategy implements CrossoverStrategy {
     public ScalingConfiguration crossover(ScalingConfiguration p1, ScalingConfiguration p2) {
         int minReplicas = pick(p1.getMinReplicas(), p2.getMinReplicas());
         int maxReplicas = pick(p1.getMaxReplicas(), p2.getMaxReplicas());
+
+        if (maxReplicas <= minReplicas) {
+            maxReplicas = minReplicas + ScalingParameterRanges.MAX_REPLICAS_MIN_OFFSET;
+        }
 
         double cpuThreshold = ThresholdUtils.pickNearest(p1.getCpuThreshold(), p2.getCpuThreshold());
         double memoryThreshold = ThresholdUtils.pickNearest(p1.getMemoryThreshold(), p2.getMemoryThreshold());
@@ -54,10 +60,9 @@ public class BlendCrossoverStrategy implements CrossoverStrategy {
         double min = Math.min(a, b);
         double max = Math.max(a, b);
         double range = max - min;
-        double alpha = 0.3;
-        double lower = min - alpha * range;
-        double upper = max + alpha * range;
-        return clamp(lower + random.nextDouble() * (upper - lower), minBound, maxBound);
+        double lower = min - BLX_ALPHA * range;
+        double upper = max + BLX_ALPHA * range;
+        return clamp(lower + ThreadLocalRandom.current().nextDouble() * (upper - lower), minBound, maxBound);
     }
 
     private double clamp(double value, double min, double max) {

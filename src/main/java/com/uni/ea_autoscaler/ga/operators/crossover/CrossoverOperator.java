@@ -9,7 +9,7 @@ public class CrossoverOperator {
 
     private final CrossoverStrategy crossoverStrategy;
 
-    public CrossoverOperator(@Qualifier("uniformCrossover") CrossoverStrategy crossoverStrategy) {
+    public CrossoverOperator(@Qualifier("blendCrossover") CrossoverStrategy crossoverStrategy) {
         this.crossoverStrategy = crossoverStrategy;
     }
 

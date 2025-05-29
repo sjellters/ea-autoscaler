@@ -6,13 +6,11 @@ import com.uni.ea_autoscaler.ga.initialization.RandomInitializer;
 import com.uni.ea_autoscaler.ga.logging.GenerationCsvLogger;
 import com.uni.ea_autoscaler.ga.model.ScalingConfiguration;
 import com.uni.ea_autoscaler.ga.model.ScalingConfigurationValidator;
-import com.uni.ea_autoscaler.ga.nsga3.config.EvolutionConfigValidator;
 import com.uni.ea_autoscaler.ga.operators.MutationOperator;
 import com.uni.ea_autoscaler.ga.operators.crossover.CrossoverOperator;
 import com.uni.ea_autoscaler.ga.operators.selection.SelectionOperator;
 import com.uni.ea_autoscaler.ga.selection.NextGenerationSelector;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -50,7 +48,7 @@ public class EvolutionEngine {
             GenerationCsvLogger generationCSVLogger,
             EvolutionConfigValidator configValidator,
             ScalingConfigurationValidator scalingConfigurationValidator,
-            @Qualifier("nsga3") NextGenerationSelector nextGenerationSelector,
+            NextGenerationSelector nextGenerationSelector,
             @Value("${evolution.populationSize}") int populationSize,
             @Value("${evolution.maxGenerations}") int maxGenerations,
             @Value("${evolution.mutationRate}") double mutationRate
@@ -72,6 +70,8 @@ public class EvolutionEngine {
     }
 
     public List<ScalingConfiguration> run() {
+        long engineStartTime = System.currentTimeMillis();
+
         configValidator.validate(populationSize, maxGenerations, mutationRate);
         log.info("⚙️ Starting evolution with configuration:");
         log.info(" - Population Size: {}", populationSize);
@@ -111,6 +111,10 @@ public class EvolutionEngine {
             long duration = System.currentTimeMillis() - start;
             log.info("⏱️ Generation {} completed in {} ms", generation, duration);
         }
+
+        long totalDuration = System.currentTimeMillis() - engineStartTime;
+
+        log.info("🏁 Evolution completed in {} ms", totalDuration);
 
         return population;
     }

@@ -29,6 +29,8 @@ public class JMeterExecutorImpl implements JMeterExecutor {
         ProcessBuilder builder = new ProcessBuilder(command);
         builder.inheritIO();
 
+        Path resultPath = Path.of(resultFilePath);
+
         try {
             Process process = builder.start();
             int exitCode = process.waitFor();
@@ -40,15 +42,15 @@ public class JMeterExecutorImpl implements JMeterExecutor {
                 log.warn("⚠️ JMeter exited with code {}", exitCode);
             }
 
-            return new JMeterExecutionResult(success, Path.of(resultFilePath));
+            return new JMeterExecutionResult(success, resultPath);
 
         } catch (IOException e) {
             log.error("❌ IO error running JMeter: {}", e.getMessage(), e);
-            return new JMeterExecutionResult(false, Path.of(resultFilePath));
+            return new JMeterExecutionResult(false, resultPath);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             log.error("❌ JMeter execution was interrupted", e);
-            return new JMeterExecutionResult(false, Path.of(resultFilePath));
+            return new JMeterExecutionResult(false, resultPath);
         }
     }
 }

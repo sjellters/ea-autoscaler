@@ -22,6 +22,6 @@ public class GenerationCsvLogger {
     }
 
     public void log(int generation, List<ScalingConfiguration> population) {
-        scalingCsvWriter.writeToCsv(logFilePath, population, true, true);
+        scalingCsvWriter.writeToCsv(logFilePath, population, generation, true, true);
     }
 }

@@ -6,5 +6,7 @@ import java.util.List;
 
 public interface NextGenerationSelector {
 
-    List<ScalingConfiguration> selectNextGeneration(List<ScalingConfiguration> current, List<ScalingConfiguration> offspring, int populationSize);
+    List<ScalingConfiguration> selectNextGeneration(List<ScalingConfiguration> current,
+                                                    List<ScalingConfiguration> offspring,
+                                                    int populationSize);
 }

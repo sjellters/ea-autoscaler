@@ -2,7 +2,6 @@ package com.uni.ea_autoscaler.ga.selection.nsga;
 
 import com.uni.ea_autoscaler.ga.model.ScalingConfiguration;
 import com.uni.ea_autoscaler.ga.selection.NextGenerationSelector;
-import com.uni.ea_autoscaler.ga.selection.nsga.reference.ReferencePointGenerator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,7 +13,7 @@ import java.util.List;
 @Slf4j
 @Component("nsga3")
 @RequiredArgsConstructor
-public class NSGAIIISelectionStrategy implements NextGenerationSelector {
+public class NSGA3SelectionStrategy implements NextGenerationSelector {
 
     private final ParetoFrontsCalculator paretoFrontsCalculator;
     private final ReferencePointGenerator referencePointGenerator;
@@ -32,7 +31,6 @@ public class NSGAIIISelectionStrategy implements NextGenerationSelector {
         combined.addAll(offspring);
 
         List<List<ScalingConfiguration>> fronts = paretoFrontsCalculator.calculateFronts(combined);
-        log.info("✅ Total Pareto fronts calculated: {}", fronts.size());
 
         List<ScalingConfiguration> nextGen = new ArrayList<>();
 
@@ -51,10 +49,8 @@ public class NSGAIIISelectionStrategy implements NextGenerationSelector {
             } else {
                 int numObjectives = lastFront.get(0).getNormalizedObjectives().length;
                 List<double[]> referencePoints = referencePointGenerator.generate(numObjectives, divisions);
-                log.info("🎯 Generated {} reference points for {} objectives ({} divisions)", referencePoints.size(), numObjectives, divisions);
 
-                List<ScalingConfiguration> selected = nichingSelector.selectFromLastFront(lastFront, referencePoints, remaining);
-                log.info("🌐 Niching selected {} individuals from last front", selected.size());
+                List<ScalingConfiguration> selected = nichingSelector.selectWithNiching(lastFront, referencePoints, remaining);
                 nextGen.addAll(selected);
             }
         }

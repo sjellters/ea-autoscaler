@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -78,31 +80,38 @@ public class FitnessEvaluator {
 
         String resultFile = "results_" + id + ".jtl";
 
+        Instant startTime = Instant.now();
         JMeterResultMetrics metrics = jmeterService.runTest(targetHost, targetPort, testPlanPath, resultFile);
+        Instant endTime = Instant.now();
+
         if (metrics == null) {
             log.warn("⚠️ JMeter failed for {}", id);
             penaltyStrategy.applyPenalty(individual, PenaltyReason.JMETER_FAILURE);
             return;
         }
 
-        log.info("📡 Querying Prometheus metrics for {}", id);
+        long durationSeconds = Duration.between(startTime, endTime).toSeconds();
+        String window = durationSeconds + "s";
+
+        log.info("📡 Querying Prometheus metrics for {} with window={}", id, window);
+
         double avgCpu = prometheusMetricsService.averageRange(
-                String.format("rate(container_cpu_usage_seconds_total{namespace=\"%s\"}[30s])", namespace)
-        );
+                String.format("rate(container_cpu_usage_seconds_total{namespace=\"%s\"}[%s])", namespace, window),
+                startTime, endTime, "30s");
         double avgMemory = prometheusMetricsService.averageRange(
-                String.format("container_memory_usage_bytes{namespace=\"%s\"}", namespace)
-        );
+                String.format("container_memory_usage_bytes{namespace=\"%s\"}", namespace),
+                startTime, endTime, "30s");
         double avgReplicas = prometheusMetricsService.averageRange(
-                String.format("kube_deployment_status_replicas{namespace=\"%s\"}", namespace)
-        );
+                String.format("kube_deployment_status_replicas{namespace=\"%s\"}", namespace),
+                startTime, endTime, "30s");
 
         Map<String, Double> objectiveMap = new LinkedHashMap<>();
-        objectiveMap.put("avgResponseTime", metrics.getAverageResponseTime());
+        objectiveMap.put("avgResponseTime", metrics.averageResponseTime());
         objectiveMap.put("avgCpu", avgCpu);
         objectiveMap.put("avgMemory", avgMemory);
         objectiveMap.put("avgReplicas", avgReplicas);
-        objectiveMap.put("errorRate", metrics.getErrorRate());
-        objectiveMap.put("avgLatency", metrics.getAverageLatency());
+        objectiveMap.put("errorRate", metrics.errorRate());
+        objectiveMap.put("avgLatency", metrics.averageLatency());
 
         double[] objectives = objectiveMap.values().stream().mapToDouble(Double::doubleValue).toArray();
 

@@ -1,57 +1,61 @@
 package com.uni.ea_autoscaler.k8s;
 
 import io.kubernetes.client.openapi.ApiException;
-import io.kubernetes.client.openapi.apis.AppsV1Api;
-import io.kubernetes.client.openapi.models.V1Deployment;
+import io.kubernetes.client.openapi.apis.CoreV1Api;
+import io.kubernetes.client.openapi.models.V1Pod;
+import io.kubernetes.client.openapi.models.V1PodList;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.util.Objects;
+import java.util.List;
 
 @Slf4j
 @Component
 public class KubernetesDeploymentMonitor {
 
-    private final AppsV1Api appsApi;
-    private final String deploymentName;
-    private final String namespace;
+    private final CoreV1Api coreV1Api;
 
-    public KubernetesDeploymentMonitor(
-            AppsV1Api appsApi,
-            @Value("${k8s.deploymentName}") String deploymentName,
-            @Value("${k8s.namespace}") String namespace
-    ) {
-        this.appsApi = appsApi;
-        this.deploymentName = deploymentName;
-        this.namespace = namespace;
+    @Value("${monitor.namespace}")
+    private String namespace;
+
+    @Value("${monitor.labelSelector}")
+    private String labelSelector;
+
+    public KubernetesDeploymentMonitor(CoreV1Api coreV1Api) {
+        this.coreV1Api = coreV1Api;
     }
 
-    @SuppressWarnings("BusyWait")
-    public void waitForDesiredReplicas(int desiredReplicas, int timeoutSeconds, int pollIntervalMillis) throws InterruptedException {
-        long startTime = System.currentTimeMillis();
-
-        while (System.currentTimeMillis() - startTime < timeoutSeconds * 2000L) {
+    public void waitForDesiredReplicas(int desiredReplicas, int maxAttempts, int pollIntervalMillis) throws InterruptedException {
+        int attempt = 0;
+        while (attempt < maxAttempts) {
             try {
-                V1Deployment deployment = appsApi.readNamespacedDeployment(deploymentName, namespace).execute();
+                V1PodList podList = coreV1Api
+                        .listNamespacedPod(namespace)
+                        .labelSelector(labelSelector)
+                        .execute();
 
-                int available = Objects.requireNonNull(deployment.getStatus()).getAvailableReplicas() != null
-                        ? deployment.getStatus().getAvailableReplicas() : 0;
+                List<V1Pod> items = podList.getItems();
+                long readyPods = items.stream()
+                        .filter(pod -> pod.getStatus() != null &&
+                                pod.getStatus().getConditions() != null &&
+                                pod.getStatus().getConditions().stream()
+                                        .anyMatch(cond -> "Ready".equals(cond.getType()) && "True".equals(cond.getStatus()))
+                        ).count();
 
-                log.info("🔍 Waiting for {} available replicas... Current: {}", desiredReplicas, available);
+                log.info("🔍 Ready pods: {}/{}", readyPods, desiredReplicas);
 
-                if (available == desiredReplicas) {
-                    log.info("✅ Desired number of replicas reached.");
+                if (readyPods == desiredReplicas) {
                     return;
                 }
 
+                Thread.sleep(pollIntervalMillis);
+                attempt++;
             } catch (ApiException e) {
-                log.warn("⚠️ Error while checking deployment status: {}", e.getMessage());
+                log.error("❌ Error fetching pod list from namespace '{}':", namespace, e);
+                throw new RuntimeException(e);
             }
-
-            Thread.sleep(pollIntervalMillis);
         }
-
-        log.warn("⏱️ Timeout while waiting for {} available replicas.", desiredReplicas);
+        log.warn("⚠️ Timed out waiting for desired replicas ({}). Proceeding anyway.", desiredReplicas);
     }
 }

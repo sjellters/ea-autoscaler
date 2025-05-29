@@ -1,4 +1,4 @@
-package com.uni.ea_autoscaler.ga.selection.nsga.reference;
+package com.uni.ea_autoscaler.ga.selection.nsga;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
