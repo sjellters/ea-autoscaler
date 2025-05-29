@@ -4,6 +4,7 @@ import com.uni.ea_autoscaler.ga.model.ScalingConfiguration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -19,7 +20,7 @@ public class ObjectiveNormalizer {
 
         for (ScalingConfiguration ind : population) {
             double[] normalized = normalizeObjectives(ind.getObjectives(), min, max);
-            ind.setObjectives(normalized);
+            ind.setNormalizedObjectives(normalized);
         }
     }
 
@@ -34,7 +35,7 @@ public class ObjectiveNormalizer {
             }
         }
 
-        log.debug("🔽 Min values: {}", min);
+        log.debug("🔽 Min values: {}", Arrays.toString(min));
         return min;
     }
 
@@ -49,7 +50,7 @@ public class ObjectiveNormalizer {
             }
         }
 
-        log.debug("🔼 Max values: {}", max);
+        log.debug("🔼 Max values: {}", Arrays.toString(max));
         return max;
     }
 

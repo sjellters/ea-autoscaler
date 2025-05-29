@@ -3,6 +3,7 @@ package com.uni.ea_autoscaler.ga.operators.crossover;
 import com.uni.ea_autoscaler.ga.model.ScalingConfiguration;
 import com.uni.ea_autoscaler.ga.model.ScalingConfigurationValidator;
 import com.uni.ea_autoscaler.ga.model.ScalingParameterRanges;
+import com.uni.ea_autoscaler.ga.util.ThresholdUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.Random;
@@ -22,22 +23,19 @@ public class BlendCrossoverStrategy implements CrossoverStrategy {
         int minReplicas = pick(p1.getMinReplicas(), p2.getMinReplicas());
         int maxReplicas = pick(p1.getMaxReplicas(), p2.getMaxReplicas());
 
-        double cpuThreshold = pickNearestThreshold(p1.getCpuThreshold(), p2.getCpuThreshold());
-        double memoryThreshold = pickNearestThreshold(p1.getMemoryThreshold(), p2.getMemoryThreshold());
+        double cpuThreshold = ThresholdUtils.pickNearest(p1.getCpuThreshold(), p2.getCpuThreshold());
+        double memoryThreshold = ThresholdUtils.pickNearest(p1.getMemoryThreshold(), p2.getMemoryThreshold());
 
-        int cooldownSeconds = pick(p1.getCooldownSeconds(), p2.getCooldownSeconds());
+        int rawCooldown = pick(p1.getCooldownSeconds(), p2.getCooldownSeconds());
+        int cooldownSeconds = ScalingParameterRanges.discretizeCooldown(rawCooldown);
 
-        int cpuRequest = (int) Math.min(
-                blxAlpha(p1.getCpuRequest(), p2.getCpuRequest(),
-                        ScalingParameterRanges.CPU_REQUEST_MIN, ScalingParameterRanges.CPU_REQUEST_MAX),
-                ScalingParameterRanges.CPU_REQUEST_MAX
-        );
+        int rawCpu = (int) blxAlpha(p1.getCpuRequest(), p2.getCpuRequest(),
+                ScalingParameterRanges.CPU_REQUEST_MIN, ScalingParameterRanges.CPU_REQUEST_MAX);
+        int cpuRequest = ScalingParameterRanges.discretizeCpuRequest(rawCpu);
 
-        int memoryRequest = (int) Math.min(
-                blxAlpha(p1.getMemoryRequest(), p2.getMemoryRequest(),
-                        ScalingParameterRanges.MEMORY_REQUEST_MIN, ScalingParameterRanges.MEMORY_REQUEST_MAX),
-                ScalingParameterRanges.MEMORY_REQUEST_MAX
-        );
+        int rawMemory = (int) blxAlpha(p1.getMemoryRequest(), p2.getMemoryRequest(),
+                ScalingParameterRanges.MEMORY_REQUEST_MIN, ScalingParameterRanges.MEMORY_REQUEST_MAX);
+        int memoryRequest = ScalingParameterRanges.discretizeMemoryRequest(rawMemory);
 
         ScalingConfiguration child = ScalingConfiguration.builder()
                 .minReplicas(minReplicas)
@@ -68,22 +66,5 @@ public class BlendCrossoverStrategy implements CrossoverStrategy {
 
     private int pick(int a, int b) {
         return random.nextBoolean() ? a : b;
-    }
-
-    private double pickNearestThreshold(double t1, double t2) {
-        double avg = (t1 + t2) / 2.0;
-        double[] thresholds = ScalingParameterRanges.THRESHOLDS;
-        double closest = thresholds[0];
-        double minDiff = Math.abs(thresholds[0] - avg);
-
-        for (int i = 1; i < thresholds.length; i++) {
-            double diff = Math.abs(thresholds[i] - avg);
-            if (diff < minDiff) {
-                minDiff = diff;
-                closest = thresholds[i];
-            }
-        }
-
-        return closest;
     }
 }

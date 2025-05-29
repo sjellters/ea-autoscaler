@@ -108,6 +108,24 @@ public class KubernetesScalerImpl implements KubernetesScaler {
     }
 
     private V2HorizontalPodAutoscaler buildHpaFromConfig(ScalingConfiguration config) {
+        var behavior = new V2HorizontalPodAutoscalerBehavior()
+                .scaleUp(new V2HPAScalingRules()
+                        .stabilizationWindowSeconds(config.getCooldownSeconds())
+                        .policies(List.of(
+                                new V2HPAScalingPolicy()
+                                        .type("Percent")
+                                        .value(100)
+                                        .periodSeconds(15)
+                        )))
+                .scaleDown(new V2HPAScalingRules()
+                        .stabilizationWindowSeconds(config.getCooldownSeconds())
+                        .policies(List.of(
+                                new V2HPAScalingPolicy()
+                                        .type("Percent")
+                                        .value(100)
+                                        .periodSeconds(30)
+                        )));
+
         return new V2HorizontalPodAutoscaler()
                 .metadata(new V1ObjectMeta()
                         .name(hpaName)
@@ -135,6 +153,7 @@ public class KubernetesScalerImpl implements KubernetesScaler {
                                                         .averageUtilization((int) (config.getMemoryThreshold() * 100)))
                                 )
                         ))
+                        .behavior(behavior)
                 );
     }
 }

@@ -27,9 +27,13 @@ public class RandomInitializer {
 
         double cpuThreshold = randomThreshold();
         double memoryThreshold = randomThreshold();
-        int cooldownSeconds = randomInt(ScalingParameterRanges.COOLDOWN_MIN, ScalingParameterRanges.COOLDOWN_MAX);
-        int cpuRequest = generateValidCpuRequest();
-        int memoryRequest = generateValidMemoryRequest();
+
+        int cooldownSeconds = ScalingParameterRanges.discretizeCooldown(
+                randomInt(ScalingParameterRanges.COOLDOWN_MIN, ScalingParameterRanges.COOLDOWN_MAX)
+        );
+
+        int cpuRequest = ScalingParameterRanges.discretizeCpuRequest(generateValidCpuRequest());
+        int memoryRequest = ScalingParameterRanges.discretizeMemoryRequest(generateValidMemoryRequest());
 
         return ScalingConfiguration.builder()
                 .minReplicas(minReplicas)

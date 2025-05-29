@@ -19,8 +19,12 @@ public class ScalingConfiguration {
     private int memoryRequest;
 
     @Setter(AccessLevel.NONE)
-    @Builder.Default
-    private double[] objectives = new double[6];
+    @Getter
+    private double[] objectives;
+
+    @Setter(AccessLevel.NONE)
+    @Getter
+    private double[] normalizedObjectives;
 
     public ScalingConfiguration(ScalingConfiguration other) {
         this.minReplicas = other.minReplicas;
@@ -30,14 +34,23 @@ public class ScalingConfiguration {
         this.cooldownSeconds = other.cooldownSeconds;
         this.cpuRequest = other.cpuRequest;
         this.memoryRequest = other.memoryRequest;
-        this.objectives = Arrays.copyOf(other.objectives, other.objectives.length);
+        this.objectives = (other.objectives != null)
+                ? Arrays.copyOf(other.objectives, other.objectives.length)
+                : null;
+        this.normalizedObjectives = (other.normalizedObjectives != null)
+                ? Arrays.copyOf(other.normalizedObjectives, other.normalizedObjectives.length)
+                : null;
     }
 
     public void setObjectives(double[] objectives) {
-        if (objectives == null || objectives.length != 6) {
-            throw new IllegalArgumentException("Objectives array must have length 6");
+        if (objectives == null || objectives.length == 0) {
+            throw new IllegalArgumentException("Objectives array must not be null or empty");
         }
-        this.objectives = Arrays.copyOf(objectives, 6);
+        this.objectives = Arrays.copyOf(objectives, objectives.length);
+    }
+
+    public void setNormalizedObjectives(double[] normalized) {
+        this.normalizedObjectives = Arrays.copyOf(normalized, normalized.length);
     }
 
     public ScalingConfiguration copy() {

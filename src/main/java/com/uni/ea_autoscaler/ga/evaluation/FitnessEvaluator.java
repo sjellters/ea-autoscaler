@@ -1,15 +1,21 @@
 package com.uni.ea_autoscaler.ga.evaluation;
 
+import com.uni.ea_autoscaler.cache.EvaluationCache;
+import com.uni.ea_autoscaler.cache.ScalingKey;
+import com.uni.ea_autoscaler.ga.evaluation.penalty.PenaltyReason;
+import com.uni.ea_autoscaler.ga.evaluation.penalty.PenaltyStrategy;
 import com.uni.ea_autoscaler.ga.model.ScalingConfiguration;
 import com.uni.ea_autoscaler.jmeter.JMeterService;
 import com.uni.ea_autoscaler.jmeter.dto.JMeterResultMetrics;
 import com.uni.ea_autoscaler.k8s.KubernetesScalingService;
-import com.uni.ea_autoscaler.ga.evaluation.penalty.PenaltyReason;
-import com.uni.ea_autoscaler.ga.evaluation.penalty.PenaltyStrategy;
 import com.uni.ea_autoscaler.prometheus.PrometheusMetricsService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @Slf4j
 @Component
@@ -19,6 +25,7 @@ public class FitnessEvaluator {
     private final PrometheusMetricsService prometheusMetricsService;
     private final KubernetesScalingService kubernetesScalingService;
     private final PenaltyStrategy penaltyStrategy;
+    private final EvaluationCache evaluationCache;
 
     private final String targetHost;
     private final String targetPort;
@@ -30,6 +37,7 @@ public class FitnessEvaluator {
             PrometheusMetricsService prometheusMetricsService,
             KubernetesScalingService kubernetesScalingService,
             PenaltyStrategy penaltyStrategy,
+            @Qualifier("compositeEvaluationCache") EvaluationCache evaluationCache,
             @Value("${evaluation.targetHost}") String targetHost,
             @Value("${evaluation.targetPort}") String targetPort,
             @Value("${evaluation.namespace}") String namespace,
@@ -39,6 +47,7 @@ public class FitnessEvaluator {
         this.prometheusMetricsService = prometheusMetricsService;
         this.kubernetesScalingService = kubernetesScalingService;
         this.penaltyStrategy = penaltyStrategy;
+        this.evaluationCache = evaluationCache;
         this.targetHost = targetHost;
         this.targetPort = targetPort;
         this.namespace = namespace;
@@ -48,13 +57,21 @@ public class FitnessEvaluator {
     public void evaluate(ScalingConfiguration individual) {
         String id = "ID-" + System.nanoTime();
 
+        ScalingKey key = new ScalingKey(individual);
+        double[] cachedObjectives = evaluationCache.getObjectives(key);
+        if (cachedObjectives != null) {
+            log.info("♻️ Cached evaluation reused for {}.", id);
+            individual.setObjectives(cachedObjectives);
+            return;
+        }
+
         log.info("================================================================");
         log.info("🧬 Starting evaluation for {}:", id);
         log.info("Configuration:\n{}", individual);
 
         boolean success = kubernetesScalingService.applyAndWait(individual);
         if (!success) {
-            log.warn("⚠️  Scaling application failed for {}", id);
+            log.warn("⚠️ Scaling application failed for {}", id);
             penaltyStrategy.applyPenalty(individual, PenaltyReason.CONFIGURATION_FAILURE);
             return;
         }
@@ -63,14 +80,14 @@ public class FitnessEvaluator {
 
         JMeterResultMetrics metrics = jmeterService.runTest(targetHost, targetPort, testPlanPath, resultFile);
         if (metrics == null) {
-            log.warn("⚠️  JMeter failed for {}", id);
+            log.warn("⚠️ JMeter failed for {}", id);
             penaltyStrategy.applyPenalty(individual, PenaltyReason.JMETER_FAILURE);
             return;
         }
 
         log.info("📡 Querying Prometheus metrics for {}", id);
         double avgCpu = prometheusMetricsService.averageRange(
-                String.format("rate(container_cpu_usage_seconds_total{namespace=\"%s\"}[1m])", namespace)
+                String.format("rate(container_cpu_usage_seconds_total{namespace=\"%s\"}[30s])", namespace)
         );
         double avgMemory = prometheusMetricsService.averageRange(
                 String.format("container_memory_usage_bytes{namespace=\"%s\"}", namespace)
@@ -79,19 +96,38 @@ public class FitnessEvaluator {
                 String.format("kube_deployment_status_replicas{namespace=\"%s\"}", namespace)
         );
 
-        double[] objectives = new double[6];
-        objectives[0] = metrics.getAverageResponseTime();
-        objectives[1] = avgCpu;
-        objectives[2] = avgMemory;
-        objectives[3] = avgReplicas;
-        objectives[4] = metrics.getErrorRate();
-        objectives[5] = metrics.getAverageLatency();
+        Map<String, Double> objectiveMap = new LinkedHashMap<>();
+        objectiveMap.put("avgResponseTime", metrics.getAverageResponseTime());
+        objectiveMap.put("avgCpu", avgCpu);
+        objectiveMap.put("avgMemory", avgMemory);
+        objectiveMap.put("avgReplicas", avgReplicas);
+        objectiveMap.put("errorRate", metrics.getErrorRate());
+        objectiveMap.put("avgLatency", metrics.getAverageLatency());
+
+        double[] objectives = objectiveMap.values().stream().mapToDouble(Double::doubleValue).toArray();
+
+        if (objectives.length == 0 || allZeros(objectives)) {
+            log.error("❌ Objectives contain only zeros or were not computed. Aborting evaluation for {}", id);
+            penaltyStrategy.applyPenalty(individual, PenaltyReason.EVALUATION_INCOMPLETE);
+            return;
+        }
+
         individual.setObjectives(objectives);
+        evaluationCache.storeObjectives(key, objectives);
+        log.info("📦 Stored objectives in cache for key: {}", key);
 
-        log.info("🎯 Objectives for {}:\n  - avgResponseTime: {}\n  - avgCpu: {}\n  - avgMemory: {}\n  - avgReplicas: {}\n  - errorRate: {}\n  - avgLatency: {}",
-                id, objectives[0], objectives[1], objectives[2], objectives[3], objectives[4], objectives[5]);
+        StringBuilder sb = new StringBuilder("🎯 Objectives for ").append(id).append(":\n");
+        objectiveMap.forEach((name, value) -> sb.append("  - ").append(name).append(": ").append(value).append("\n"));
+        log.info(sb.toString());
 
-        log.info("✅ [DONE] Evaluation complete for {}:\n{}", id, individual);
+        log.info("✅ [DONE] Evaluation complete for {}:", id);
         log.info("================================================================");
+    }
+
+    private boolean allZeros(double[] arr) {
+        for (double v : arr) {
+            if (v != 0.0) return false;
+        }
+        return true;
     }
 }

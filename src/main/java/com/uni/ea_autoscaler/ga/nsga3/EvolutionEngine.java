@@ -8,10 +8,11 @@ import com.uni.ea_autoscaler.ga.model.ScalingConfiguration;
 import com.uni.ea_autoscaler.ga.model.ScalingConfigurationValidator;
 import com.uni.ea_autoscaler.ga.nsga3.config.EvolutionConfigValidator;
 import com.uni.ea_autoscaler.ga.operators.MutationOperator;
-import com.uni.ea_autoscaler.ga.selection.NextGenerationSelector;
 import com.uni.ea_autoscaler.ga.operators.crossover.CrossoverOperator;
 import com.uni.ea_autoscaler.ga.operators.selection.SelectionOperator;
+import com.uni.ea_autoscaler.ga.selection.NextGenerationSelector;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -49,7 +50,7 @@ public class EvolutionEngine {
             GenerationCsvLogger generationCSVLogger,
             EvolutionConfigValidator configValidator,
             ScalingConfigurationValidator scalingConfigurationValidator,
-            NextGenerationSelector nextGenerationSelector,
+            @Qualifier("nsga3") NextGenerationSelector nextGenerationSelector,
             @Value("${evolution.populationSize}") int populationSize,
             @Value("${evolution.maxGenerations}") int maxGenerations,
             @Value("${evolution.mutationRate}") double mutationRate
@@ -102,6 +103,7 @@ public class EvolutionEngine {
             }
 
             objectiveNormalizer.normalize(offspring);
+
             population = nextGenerationSelector.selectNextGeneration(population, offspring, populationSize);
             evolutionHistory.recordGeneration(population);
             generationCSVLogger.log(generation, population);

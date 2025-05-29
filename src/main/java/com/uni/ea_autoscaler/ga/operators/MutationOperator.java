@@ -43,15 +43,18 @@ public class MutationOperator {
         }
 
         if (random.nextDouble() < mutationRate) {
-            mutated.setCooldownSeconds(randomInt(ScalingParameterRanges.COOLDOWN_MIN, ScalingParameterRanges.COOLDOWN_MAX));
+            int rawCooldown = randomInt(ScalingParameterRanges.COOLDOWN_MIN, ScalingParameterRanges.COOLDOWN_MAX);
+            mutated.setCooldownSeconds(ScalingParameterRanges.discretizeCooldown(rawCooldown));
         }
 
         if (random.nextDouble() < mutationRate) {
-            mutated.setCpuRequest(randomInt(ScalingParameterRanges.CPU_REQUEST_MIN, ScalingParameterRanges.CPU_REQUEST_MAX));
+            int rawCpu = randomInt(ScalingParameterRanges.CPU_REQUEST_MIN, ScalingParameterRanges.CPU_REQUEST_MAX);
+            mutated.setCpuRequest(ScalingParameterRanges.discretizeCpuRequest(rawCpu));
         }
 
         if (random.nextDouble() < mutationRate) {
-            mutated.setMemoryRequest(randomInt(ScalingParameterRanges.MEMORY_REQUEST_MIN, ScalingParameterRanges.MEMORY_REQUEST_MAX));
+            int rawMemory = randomInt(ScalingParameterRanges.MEMORY_REQUEST_MIN, ScalingParameterRanges.MEMORY_REQUEST_MAX);
+            mutated.setMemoryRequest(ScalingParameterRanges.discretizeMemoryRequest(rawMemory));
         }
 
         return scalingConfigurationValidator.isValid(mutated) ? mutated : original.copy();

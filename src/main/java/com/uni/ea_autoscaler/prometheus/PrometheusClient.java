@@ -44,7 +44,6 @@ public class PrometheusClient {
             );
 
             log.info("📡 Prometheus range query: start={}, end={}, step={}, query={}", start, end, step, promQL);
-            log.info("📡 Final Prometheus URL: {}", url);
 
             URI uri = URI.create(url);
             ResponseEntity<PrometheusResponse> response = restTemplate.getForEntity(uri, PrometheusResponse.class);

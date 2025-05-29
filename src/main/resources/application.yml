@@ -1,1 +1,28 @@
-spring.application.name=ea-autoscaler
+spring:
+  application:
+    name: ea-autoscaler
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      timeout: 60000
+evolution:
+  populationSize: 3
+  maxGenerations: 2
+  mutationRate: 0.3
+  outputDir: output
+evaluation:
+  targetHost: 127.0.0.1
+  targetPort: 50002
+  namespace: tesis-simulation
+  testPlanPath: src/main/resources/jmeter/test.jmx
+prometheus:
+  url: http://127.0.0.1:50009
+k8s:
+  deploymentName: nginx-deployment
+  hpaName: nginx-hpa
+  namespace: tesis-simulation
+selection:
+  tournamentSize: 3
+nsga3:
+  referencePointDivisions: 12
