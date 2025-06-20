@@ -11,7 +11,7 @@ import java.util.Random;
 public class MutationOperator {
 
     private final ScalingConfigurationValidator scalingConfigurationValidator;
-    private final Random random = new Random();
+    private final Random random = new Random(16);
 
     public MutationOperator(ScalingConfigurationValidator scalingConfigurationValidator) {
         this.scalingConfigurationValidator = scalingConfigurationValidator;

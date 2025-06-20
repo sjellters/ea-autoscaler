@@ -7,17 +7,17 @@ spring:
       port: 6379
       timeout: 60000
 evolution:
-  populationSize: 10
+  populationSize: 20
   maxGenerations: 10
   mutationRate: 0.3
   outputDir: output
 evaluation:
   targetHost: 127.0.0.1
-  targetPort: 50002
+  targetPort: 50288
   namespace: tesis-simulation
   testPlanPath: src/main/resources/jmeter/test.jmx
 prometheus:
-  url: http://127.0.0.1:50009
+  url: http://127.0.0.1:50295
 k8s:
   deploymentName: nginx-deployment
   hpaName: nginx-hpa

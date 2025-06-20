@@ -14,7 +14,7 @@ public class BlendCrossoverStrategy implements CrossoverStrategy {
 
     private static final double BLX_ALPHA = 0.3;
     private final ScalingConfigurationValidator validator;
-    private final Random random = new Random();
+    private final Random random = new Random(16);
 
     public BlendCrossoverStrategy(ScalingConfigurationValidator validator) {
         this.validator = validator;

@@ -38,37 +38,50 @@ public class KubernetesScalerImpl implements KubernetesScaler {
         this.namespace = namespace;
     }
 
+    public void applyStaticDeploymentConfiguration(ScalingConfiguration config) {
+        updateDeploymentOnly(config, false);
+    }
+
     @Override
     public boolean applyScalingConfiguration(ScalingConfiguration config) {
         try {
             deleteHpaIfExists();
 
-            V1Deployment deployment;
-            try {
-                deployment = appsApi.readNamespacedDeployment(deploymentName, namespace).execute();
-            } catch (ApiException e) {
-                if (e.getCode() == 404) {
-                    log.error("❌ Deployment '{}' not found in namespace '{}'", deploymentName, namespace);
-                } else {
-                    log.error("❌ Failed to read Deployment: {}", e.getMessage(), e);
-                }
-                return false;
-            }
-
-            updateDeploymentResources(deployment, config);
-            appsApi.replaceNamespacedDeployment(deploymentName, namespace, deployment).execute();
-            log.info("✅ Deployment updated successfully.");
+            boolean updated = updateDeploymentOnly(config, true);
+            if (!updated) return false;
 
             V2HorizontalPodAutoscaler hpa = buildHpaFromConfig(config);
             autoscalingApi.createNamespacedHorizontalPodAutoscaler(namespace, hpa).execute();
             log.info("🔁 HPA created successfully.");
-
             return true;
 
         } catch (Exception e) {
             log.error("❌ Error applying scaling configuration: {}", e.getMessage(), e);
             return false;
         }
+    }
+
+    private boolean updateDeploymentOnly(ScalingConfiguration config, boolean logPurpose) {
+        try {
+            V1Deployment deployment = appsApi.readNamespacedDeployment(deploymentName, namespace).execute();
+            updateDeploymentResources(deployment, config);
+            appsApi.replaceNamespacedDeployment(deploymentName, namespace, deployment).execute();
+            if (logPurpose) {
+                log.info("✅ Deployment updated successfully.");
+            } else {
+                log.info("✅ Deployment updated successfully (static config, no HPA).");
+            }
+            return true;
+        } catch (ApiException e) {
+            if (e.getCode() == 404) {
+                log.error("❌ Deployment '{}' not found in namespace '{}'", deploymentName, namespace);
+            } else {
+                log.error("❌ Failed to read Deployment: {}", e.getMessage(), e);
+            }
+        } catch (Exception e) {
+            log.error("❌ Error updating deployment: {}", e.getMessage(), e);
+        }
+        return false;
     }
 
     private void deleteHpaIfExists() {

@@ -40,7 +40,7 @@ public class NichingSelector {
 
             for (Map.Entry<double[], List<ScalingConfiguration>> niche : niches) {
                 List<ScalingConfiguration> nicheMembers = niche.getValue();
-                ScalingConfiguration chosen = nicheMembers.get(new Random().nextInt(nicheMembers.size()));
+                ScalingConfiguration chosen = nicheMembers.get(new Random(16).nextInt(nicheMembers.size()));
                 selected.add(chosen);
                 nicheMembers.remove(chosen);
                 remaining.remove(chosen);

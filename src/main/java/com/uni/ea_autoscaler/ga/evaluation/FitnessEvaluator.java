@@ -62,6 +62,7 @@ public class FitnessEvaluator {
         ScalingKey key = new ScalingKey(individual);
         double[] cachedObjectives = evaluationCache.getObjectives(key);
         if (cachedObjectives != null) {
+            log.info("================================================================");
             log.info("♻️ Cached evaluation reused for {}.", id);
             individual.setObjectives(cachedObjectives);
             return;
@@ -122,7 +123,7 @@ public class FitnessEvaluator {
         }
 
         individual.setObjectives(objectives);
-        evaluationCache.storeObjectives(key, objectives);
+//        evaluationCache.storeObjectives(key, objectives);
         log.info("📦 Stored objectives in cache for key: {}", key);
 
         StringBuilder sb = new StringBuilder("🎯 Objectives for ").append(id).append(":\n");
