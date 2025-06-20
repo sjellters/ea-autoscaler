@@ -37,5 +37,6 @@ out/
 .vscode/
 
 ### Output ###
-/output
+/output-*
 jmeter.log
+!**/src/.DS_Store

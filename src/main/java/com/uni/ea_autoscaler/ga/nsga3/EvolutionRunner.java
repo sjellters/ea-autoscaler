@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 @Slf4j
-@Component
+//@Component
 public class EvolutionRunner implements CommandLineRunner {
 
     private final EvolutionEngine engine;

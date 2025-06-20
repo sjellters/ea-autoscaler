@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @Component("tournamentSelection")
 public class TournamentSelectionStrategy implements SelectionStrategy {
 
-    private final Random random = new Random();
+    private final Random random = new Random(16);
     private final int tournamentSize;
     private final ParetoFrontsCalculator paretoFrontsCalculator;
     private final NichingSelector nichingSelector;

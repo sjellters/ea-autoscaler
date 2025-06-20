@@ -1,0 +1,72 @@
+10:50:37.579 [main] INFO  c.u.e.EAAutoscalerApplication - Starting EAAutoscalerApplication using Java 17.0.15 with PID 26153 (/Users/diego/Desktop/Tesis/ea-autoscaler/build/classes/java/main started by diego in /Users/diego/Desktop/Tesis/ea-autoscaler)
+10:50:37.580 [main] INFO  c.u.e.EAAutoscalerApplication - No active profile set, falling back to 1 default profile: "default"
+10:50:37.791 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+10:50:37.792 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+10:50:37.805 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 7 ms. Found 0 Redis repository interfaces.
+10:50:37.946 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+10:50:37.950 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+10:50:37.951 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+10:50:37.951 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.40]
+10:50:37.969 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+10:50:37.969 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 377 ms
+10:50:38.538 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+10:50:38.543 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+10:50:38.552 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+10:50:38.559 [main] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+10:51:22.159 [main] INFO  c.u.e.EAAutoscalerApplication - Starting EAAutoscalerApplication using Java 17.0.15 with PID 26307 (/Users/diego/Desktop/Tesis/ea-autoscaler/build/classes/java/main started by diego in /Users/diego/Desktop/Tesis/ea-autoscaler)
+10:51:22.160 [main] INFO  c.u.e.EAAutoscalerApplication - No active profile set, falling back to 1 default profile: "default"
+10:51:22.371 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+10:51:22.372 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+10:51:22.385 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 7 ms. Found 0 Redis repository interfaces.
+10:51:22.516 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+10:51:22.519 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+10:51:22.519 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+10:51:22.519 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.40]
+10:51:22.537 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+10:51:22.537 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 365 ms
+10:51:23.032 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+10:51:23.035 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+10:51:23.039 [main] INFO  c.u.e.EAAutoscalerApplication - Started EAAutoscalerApplication in 1.035 seconds (process running for 1.203)
+10:51:23.040 [main] INFO  c.u.e.ga.nsga3.EvolutionRunner - 🚀 Starting evolutionary process...
+10:51:23.040 [main] INFO  c.u.e.ga.nsga3.EvolutionEngine - ⚙️ Starting evolution with configuration:
+10:51:23.040 [main] INFO  c.u.e.ga.nsga3.EvolutionEngine -  - Population Size: 20
+10:51:23.040 [main] INFO  c.u.e.ga.nsga3.EvolutionEngine -  - Max Generations: 10
+10:51:23.040 [main] INFO  c.u.e.ga.nsga3.EvolutionEngine -  - Mutation Rate: 0.3
+10:51:23.155 [main] INFO  c.u.e.ga.evaluation.FitnessEvaluator - ================================================================
+10:51:23.156 [main] INFO  c.u.e.ga.evaluation.FitnessEvaluator - 🧬 Starting evaluation for ID-43693457060416:
+10:51:23.156 [main] INFO  c.u.e.ga.evaluation.FitnessEvaluator - Configuration:
+ScalingConfiguration:
+  minReplicas: 2
+  maxReplicas: 5
+  cpuThreshold: 0.5
+  memoryThreshold: 0.6
+  cooldownSeconds: 20
+  cpuRequest: 150
+  memoryRequest: 768
+  objectives: null
+10:51:23.282 [main] INFO  c.u.e.k8s.KubernetesScalerImpl - 🗑️  Existing HPA deleted.
+10:51:23.343 [main] INFO  c.u.e.k8s.KubernetesScalerImpl - ✅ Deployment updated successfully.
+10:51:23.356 [main] INFO  c.u.e.k8s.KubernetesScalerImpl - 🔁 HPA created successfully.
+10:51:23.356 [main] INFO  c.u.e.k8s.KubernetesScalingService - 🔄 Waiting for pods to reach desired replica count: 2
+10:51:23.373 [main] INFO  c.u.e.k.KubernetesDeploymentMonitor - 🔍 Ready pods: 4/2
+10:51:25.397 [main] INFO  c.u.e.k.KubernetesDeploymentMonitor - 🔍 Ready pods: 2/2
+10:51:25.397 [main] INFO  c.u.e.k8s.KubernetesScalingService - ✅ Scaling successfully applied and pods ready.
+10:51:25.398 [main] INFO  c.u.e.jmeter.JMeterService - 🧪 Running JMeter test: results_ID-43693457060416.jtl
+10:51:25.398 [main] INFO  c.u.e.jmeter.JMeterExecutorImpl - 🚀 Launching JMeter with command: jmeter -n -t src/main/resources/jmeter/test.jmx -JtargetHost=127.0.0.1 -JtargetPort=50288 -l results_ID-43693457060416.jtl
+10:53:03.719 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+10:53:03.721 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete

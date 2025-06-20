@@ -34,7 +34,7 @@ public class RedisEvaluationCache implements EvaluationCache {
     @Override
     public void storeObjectives(ScalingKey scalingKey, double[] objectives) {
         try {
-            redisTemplate.opsForValue().set(scalingKey.toString(), objectMapper.writeValueAsString(objectives), 24, TimeUnit.HOURS);
+            redisTemplate.opsForValue().set(scalingKey.toString(), objectMapper.writeValueAsString(objectives));
         } catch (Exception ignored) {
         }
     }

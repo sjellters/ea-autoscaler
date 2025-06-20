@@ -15,7 +15,7 @@ import java.util.Random;
 public class RandomInitializer {
 
     private final ScalingConfigurationValidator scalingConfigurationValidator;
-    private final Random random = new Random();
+    private final Random random = new Random(16);
 
     public RandomInitializer(ScalingConfigurationValidator scalingConfigurationValidator) {
         this.scalingConfigurationValidator = scalingConfigurationValidator;
