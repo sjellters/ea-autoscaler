@@ -3,10 +3,11 @@ package com.uni.ea_autoscaler.jmeter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 @Slf4j
 @Component
@@ -21,66 +22,53 @@ public class JMeterReportParser {
     }
 
     public double parseErrorRate(Path resultsFile) {
-        int total = 0;
-        int failures = 0;
+        int[] counters = new int[2]; // [0] = total, [1] = failures
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(resultsFile.toFile()))) {
-            reader.readLine(); // Skip header
-
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(",");
-                if (parts.length < 8) continue;
-
-                total++;
-                if (!"true".equalsIgnoreCase(parts[7])) {
-                    failures++;
-                }
+        processLines(resultsFile, parts -> parts.length >= 8, parts -> {
+            counters[0]++;
+            if (!"true".equalsIgnoreCase(parts[7])) {
+                counters[1]++;
             }
+        });
 
-            if (total == 0) {
-                log.warn("⚠️ No samples found when calculating error rate for {}", resultsFile);
-                return 0.0;
-            }
-
-            return (double) failures / total;
-
-        } catch (IOException e) {
-            log.error("❌ Failed to parse error rate from {}: {}", resultsFile, e.getMessage(), e);
+        if (counters[0] == 0) {
+            log.warn("⚠️ No samples found when calculating error rate for {}", resultsFile);
             return 1.0;
         }
+
+        return (double) counters[1] / counters[0];
     }
 
     private double averageFromColumn(Path file, int columnIndex, String metricName) {
-        int count = 0;
-        double total = 0;
+        int[] count = {0};
+        double[] total = {0};
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(file.toFile()))) {
-            reader.readLine(); // Skip header
-
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(",");
-                if (parts.length <= columnIndex) continue;
-
-                try {
-                    total += Double.parseDouble(parts[columnIndex]);
-                    count++;
-                } catch (NumberFormatException ex) {
-                    log.warn("⚠️ Invalid number format in {} for column {}: {}", file, columnIndex, parts[columnIndex]);
-                }
+        processLines(file, parts -> columnIndex < parts.length, parts -> {
+            try {
+                total[0] += Double.parseDouble(parts[columnIndex]);
+                count[0]++;
+            } catch (NumberFormatException ex) {
+                log.warn("⚠️ Invalid number format in {} for column {}: {}", file, columnIndex, parts[columnIndex]);
             }
+        });
 
-            if (count == 0) {
-                log.warn("⚠️ No valid values found for {} in {}", metricName, file);
-                return 0.0;
-            }
+        if (count[0] == 0) {
+            log.warn("⚠️ No valid values found for {} in {}", metricName, file);
 
-            return total / count;
+            return Double.MAX_VALUE;
+        }
 
+        return total[0] / count[0];
+    }
+
+    private void processLines(Path file, Predicate<String[]> validator, Consumer<String[]> handler) {
+        try (var lines = Files.lines(file)) {
+            lines.skip(1) // Skip header
+                    .map(line -> line.split(","))
+                    .filter(validator)
+                    .forEach(handler);
         } catch (IOException e) {
-            log.error("❌ Failed to parse {} from {}: {}", metricName, file, e.getMessage(), e);
-            return 0.0;
+            log.error("❌ Failed to process lines from {}: {}", file, e.getMessage(), e);
         }
     }
 }

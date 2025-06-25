@@ -1,5 +1,6 @@
 package com.uni.ea_autoscaler.prometheus;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -8,22 +9,26 @@ import java.util.List;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class PrometheusMetricsService {
 
     private final PrometheusClient prometheusClient;
-
-    public PrometheusMetricsService(PrometheusClient prometheusClient) {
-        this.prometheusClient = prometheusClient;
-    }
 
     public double averageRange(String promQL, Instant start, Instant end, String step) {
         String startEpoch = String.valueOf(start.getEpochSecond());
         String endEpoch = String.valueOf(end.getEpochSecond());
 
         List<List<String>> values = prometheusClient.queryRangeMetric(promQL, startEpoch, endEpoch, step);
+
+        if (values.isEmpty()) {
+            log.warn("⚠️ No data returned from Prometheus for query: {}", promQL);
+
+            return Double.MAX_VALUE;
+        }
+
         return values.stream()
                 .mapToDouble(point -> Double.parseDouble(point.get(1)))
                 .average()
-                .orElse(0.0);
+                .orElse(Double.MAX_VALUE);
     }
 }

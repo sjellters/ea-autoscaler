@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+  namespace: tesis-simulation
+data:
+  nginx.conf: |
+    worker_processes auto;
+    
+    events {
+      worker_connections 1024;
+    }
+    
+    http {
+      upstream fibonacci_backend {
+        server fibonacci-service-nodeport.tesis-simulation.svc.cluster.local:80;
+      }
+    
+      server {
+        listen 80;
+    
+        location / {
+          proxy_pass http://fibonacci_backend;
+          proxy_set_header Host $host;
+          proxy_set_header X-Real-IP $remote_addr;
+        }
+      }
+    }
+

@@ -17,6 +17,7 @@ public class KubernetesClientConfig {
     public ApiClient apiClient() throws IOException {
         ApiClient client = Config.defaultClient();
         io.kubernetes.client.openapi.Configuration.setDefaultApiClient(client);
+
         return client;
     }
 

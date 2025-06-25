@@ -1,9 +1,11 @@
 package com.uni.ea_autoscaler.cache;
 
-import com.uni.ea_autoscaler.ga.model.ScalingConfiguration;
+import com.uni.ea_autoscaler.old.ga.model.ScalingConfiguration;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
-import java.util.Objects;
-
+@Getter
+@EqualsAndHashCode
 public class ScalingKey {
 
     private final int minReplicas;
@@ -25,33 +27,15 @@ public class ScalingKey {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ScalingKey that)) return false;
-        return minReplicas == that.minReplicas &&
-                maxReplicas == that.maxReplicas &&
-                Double.compare(cpuThreshold, that.cpuThreshold) == 0 &&
-                Double.compare(memoryThreshold, that.memoryThreshold) == 0 &&
-                cooldownSeconds == that.cooldownSeconds &&
-                cpuRequest == that.cpuRequest &&
-                memoryRequest == that.memoryRequest;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-                minReplicas,
-                maxReplicas,
-                cpuThreshold,
-                memoryThreshold,
-                cooldownSeconds,
-                cpuRequest,
-                memoryRequest);
-    }
-
-    @Override
     public String toString() {
-        return minReplicas + "-" + maxReplicas + "-" + cpuThreshold + "-" + memoryThreshold + "-" +
-                cooldownSeconds + "-" + cpuRequest + "-" + memoryRequest;
+        return String.join("-",
+                String.valueOf(minReplicas),
+                String.valueOf(maxReplicas),
+                String.format("%.1f", cpuThreshold),
+                String.format("%.1f", memoryThreshold),
+                String.valueOf(cooldownSeconds),
+                String.valueOf(cpuRequest),
+                String.valueOf(memoryRequest)
+        );
     }
 }

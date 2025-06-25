@@ -13,14 +13,14 @@ evolution:
   outputDir: output
 evaluation:
   targetHost: 127.0.0.1
-  targetPort: 50288
+  targetPort: 8080
   namespace: tesis-simulation
   testPlanPath: src/main/resources/jmeter/test.jmx
 prometheus:
-  url: http://127.0.0.1:50295
+  url: http://127.0.0.1:49540
 k8s:
-  deploymentName: nginx-deployment
-  hpaName: nginx-hpa
+  deploymentName: fibonacci-deployment
+  hpaName: fibonacci-hpa
   namespace: tesis-simulation
 selection:
   tournamentSize: 2
@@ -28,4 +28,4 @@ nsga3:
   referencePointDivisions: 12
 monitor:
   namespace: tesis-simulation
-  labelSelector: app=nginx
+  labelSelector: app=fibonacci

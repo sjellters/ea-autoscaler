@@ -21,9 +21,11 @@ public class CompositeEvaluationCache implements EvaluationCache {
         if (cached != null) return cached;
 
         cached = redis.getObjectives(scalingKey);
+
         if (cached != null) {
             inMemory.storeObjectives(scalingKey, cached);
         }
+
         return cached;
     }
 

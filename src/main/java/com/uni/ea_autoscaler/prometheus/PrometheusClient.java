@@ -33,25 +33,17 @@ public class PrometheusClient {
 
     public List<List<String>> queryRangeMetric(String promQL, String start, String end, String step) {
         try {
-            String encodedQuery = URLEncoder.encode(promQL, StandardCharsets.UTF_8).replace("+", "%20");
-            String url = String.format(
-                    "%s/api/v1/query_range?query=%s&start=%s&end=%s&step=%s",
-                    baseUrl,
-                    encodedQuery,
-                    start,
-                    end,
-                    step
-            );
+            URI uri = buildQueryRangeUri(promQL, start, end, step);
 
             log.info("📡 Prometheus range query: start={}, end={}, step={}, query={}", start, end, step, promQL);
 
-            URI uri = URI.create(url);
             ResponseEntity<PrometheusResponse> response = restTemplate.getForEntity(uri, PrometheusResponse.class);
 
             if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
-                List<PrometheusResult> results = response.getBody().getData().getResult();
+                List<PrometheusResult> results = response.getBody().data().result();
+
                 if (!results.isEmpty()) {
-                    return results.get(0).getValues();
+                    return results.get(0).values();
                 } else {
                     log.warn("⚠️ No results found in Prometheus response.");
                 }
@@ -60,9 +52,19 @@ public class PrometheusClient {
             }
 
         } catch (Exception e) {
-            log.error("❌ Error querying Prometheus", e);
+            log.error("❌ Error querying Prometheus with query: {}", promQL, e);
         }
 
         return Collections.emptyList();
+    }
+
+    private URI buildQueryRangeUri(String promQL, String start, String end, String step) {
+        String encodedQuery = URLEncoder.encode(promQL, StandardCharsets.UTF_8).replace("+", "%20");
+        String url = String.format(
+                "%s/api/v1/query_range?query=%s&start=%s&end=%s&step=%s",
+                baseUrl, encodedQuery, start, end, step
+        );
+
+        return URI.create(url);
     }
 }

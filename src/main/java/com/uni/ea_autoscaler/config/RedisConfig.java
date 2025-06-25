@@ -17,15 +17,14 @@ public class RedisConfig {
         template.setConnectionFactory(factory);
 
         StringRedisSerializer stringSerializer = new StringRedisSerializer();
+
         template.setKeySerializer(stringSerializer);
         template.setHashKeySerializer(stringSerializer);
-
         template.setValueSerializer(new GenericJackson2JsonRedisSerializer());
-
         template.afterPropertiesSet();
+
         return template;
     }
-
 
     @Bean
     public ObjectMapper objectMapper() {
