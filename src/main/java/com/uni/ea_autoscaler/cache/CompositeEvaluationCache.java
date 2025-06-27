@@ -2,13 +2,14 @@ package com.uni.ea_autoscaler.cache;
 
 import com.uni.ea_autoscaler.cache.impl.InMemoryEvaluationCache;
 import com.uni.ea_autoscaler.cache.impl.RedisEvaluationCache;
+import com.uni.ea_autoscaler.ga.model.ScalingConfiguration;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CompositeEvaluationCache implements EvaluationCache {
 
-    private final EvaluationCache inMemory;
-    private final EvaluationCache redis;
+    private final InMemoryEvaluationCache inMemory;
+    private final RedisEvaluationCache redis;
 
     public CompositeEvaluationCache(InMemoryEvaluationCache inMemory, RedisEvaluationCache redis) {
         this.inMemory = inMemory;
@@ -16,22 +17,22 @@ public class CompositeEvaluationCache implements EvaluationCache {
     }
 
     @Override
-    public double[] getObjectives(ScalingKey scalingKey) {
-        double[] cached = inMemory.getObjectives(scalingKey);
+    public ScalingConfiguration getConfiguration(ScalingKey scalingKey) {
+        ScalingConfiguration cached = inMemory.getConfiguration(scalingKey);
         if (cached != null) return cached;
 
-        cached = redis.getObjectives(scalingKey);
+        cached = redis.getConfiguration(scalingKey);
 
         if (cached != null) {
-            inMemory.storeObjectives(scalingKey, cached);
+            inMemory.storeConfiguration(scalingKey, cached);
         }
 
         return cached;
     }
 
     @Override
-    public void storeObjectives(ScalingKey scalingKey, double[] objectives) {
-        inMemory.storeObjectives(scalingKey, objectives);
-        redis.storeObjectives(scalingKey, objectives);
+    public void storeConfiguration(ScalingKey scalingKey, ScalingConfiguration configuration) {
+        inMemory.storeConfiguration(scalingKey, configuration);
+        redis.storeConfiguration(scalingKey, configuration);
     }
 }

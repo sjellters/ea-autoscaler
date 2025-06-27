@@ -25,9 +25,10 @@ public class JMeterExecutorImpl implements JMeterExecutor {
         builder.inheritIO();
 
         Path resultPath = Path.of(resultFilePath);
+        Process process = null;
 
         try {
-            Process process = builder.start();
+            process = builder.start();
             ProcessHandle handle = process.toHandle();
 
             boolean finished = process.waitFor(TIMEOUT_SECONDS, TimeUnit.SECONDS);
@@ -60,9 +61,9 @@ public class JMeterExecutorImpl implements JMeterExecutor {
 
             return new JMeterExecutionResult(false, resultPath);
         } catch (InterruptedException e) {
+            log.warn("🛑 JMeter execution was interrupted. Destroying process...");
+            process.destroyForcibly();
             Thread.currentThread().interrupt();
-            log.error("❌ JMeter execution was interrupted", e);
-
             return new JMeterExecutionResult(false, resultPath);
         }
     }

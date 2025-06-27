@@ -1,8 +1,10 @@
 package com.uni.ea_autoscaler.cache;
 
+import com.uni.ea_autoscaler.ga.model.ScalingConfiguration;
+
 public interface EvaluationCache {
 
-    double[] getObjectives(ScalingKey scalingKey);
+    ScalingConfiguration getConfiguration(ScalingKey scalingKey);
 
-    void storeObjectives(ScalingKey scalingKey, double[] objectives);
+    void storeConfiguration(ScalingKey scalingKey, ScalingConfiguration configuration);
 }

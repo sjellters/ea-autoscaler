@@ -1,6 +1,6 @@
 package com.uni.ea_autoscaler.k8s;
 
-import com.uni.ea_autoscaler.old.ga.model.ScalingConfiguration;
+import com.uni.ea_autoscaler.ga.model.ScalingConfiguration;
 import io.kubernetes.client.custom.Quantity;
 import io.kubernetes.client.openapi.ApiClient;
 import io.kubernetes.client.openapi.ApiException;
@@ -65,6 +65,7 @@ public class KubernetesScalerImpl implements KubernetesScaler {
 
     @Override
     public void restartDeployment() {
+        deleteHpaIfExists();
         try {
             V1Deployment deployment = appsApi.readNamespacedDeployment(deploymentName, namespace).execute();
 
@@ -84,6 +85,9 @@ public class KubernetesScalerImpl implements KubernetesScaler {
 
             appsApi.replaceNamespacedDeployment(deploymentName, namespace, deployment).execute();
             log.info("♻️ Deployment {} restarted", deploymentName);
+
+            // Sleep to allow the deployment to stabilize
+            Thread.sleep(5000);
         } catch (Exception e) {
             log.error("❌ Failed to restart deployment: {}", e.getMessage(), e);
         }
@@ -110,8 +114,6 @@ public class KubernetesScalerImpl implements KubernetesScaler {
     }
 
     private boolean updateDeploymentOnly(ScalingConfiguration config, boolean logPurpose) {
-        kubernetesPodTracker.reset();
-
         try {
             V1Deployment deployment = appsApi.readNamespacedDeployment(deploymentName, namespace).execute();
             updateDeploymentResources(deployment, config);

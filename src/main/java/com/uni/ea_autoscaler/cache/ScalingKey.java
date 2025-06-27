@@ -1,6 +1,6 @@
 package com.uni.ea_autoscaler.cache;
 
-import com.uni.ea_autoscaler.old.ga.model.ScalingConfiguration;
+import com.uni.ea_autoscaler.ga.model.ScalingConfiguration;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 

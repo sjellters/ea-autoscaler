@@ -7,7 +7,7 @@ spring:
       port: 6379
       timeout: 60000
 evolution:
-  populationSize: 20
+  populationSize: 10
   maxGenerations: 10
   mutationRate: 0.3
   outputDir: output

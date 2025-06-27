@@ -1,5 +1,6 @@
 package com.uni.ea_autoscaler.jmeter;
 
+import com.uni.ea_autoscaler.baseline.BaselineThresholds;
 import com.uni.ea_autoscaler.jmeter.dto.JMeterResultMetrics;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -42,11 +43,21 @@ public class JMeterService {
             return null;
         }
 
-        double avgResponseTime = jmeterReportParser.parseAverageElapsedTime(result.resultsFile());
-        double avgLatency = jmeterReportParser.parseAverageLatency(result.resultsFile());
+        Double avgResponseTime = jmeterReportParser.parseAverageElapsedTime(result.resultsFile());
+        Double avgLatency = jmeterReportParser.parseAverageLatency(result.resultsFile());
         double errorRate = jmeterReportParser.parseErrorRate(result.resultsFile());
 
-        return new JMeterResultMetrics(avgResponseTime, avgLatency, errorRate);
+        BaselineThresholds thresholds = BaselineThresholds.getInstance();
+        Double slaThreshold = thresholds.getP95Threshold();
+
+        Double slaPercentage = slaThreshold != null
+                ? jmeterReportParser.calculateSlaPercentage(result.resultsFile(), slaThreshold)
+                : null;
+
+
+        Double p95 = jmeterReportParser.calculatePercentile(result.resultsFile(), slaThreshold == null ? 0.5 : 0.95);
+
+        return new JMeterResultMetrics(avgResponseTime, avgLatency, errorRate, slaPercentage, p95);
     }
 }
 

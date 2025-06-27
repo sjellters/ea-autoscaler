@@ -1,6 +1,6 @@
 package com.uni.ea_autoscaler.k8s;
 
-import com.uni.ea_autoscaler.old.ga.model.ScalingConfiguration;
+import com.uni.ea_autoscaler.ga.model.ScalingConfiguration;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

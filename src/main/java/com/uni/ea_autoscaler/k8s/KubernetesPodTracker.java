@@ -40,6 +40,11 @@ public class KubernetesPodTracker {
     }
 
     public void pollPods() {
+        if (currentPodTemplateHash.isEmpty()) {
+            log.warn("⚠️ Current pod template hash is not set. Skipping pod polling.");
+            return;
+        }
+
         try {
             V1PodList podList = coreV1Api
                     .listNamespacedPod(namespace)

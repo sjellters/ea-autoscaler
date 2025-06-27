@@ -14,7 +14,7 @@ public class PrometheusMetricsService {
 
     private final PrometheusClient prometheusClient;
 
-    public double averageRange(String promQL, Instant start, Instant end, String step) {
+    public Double averageRange(String promQL, Instant start, Instant end, String step) {
         String startEpoch = String.valueOf(start.getEpochSecond());
         String endEpoch = String.valueOf(end.getEpochSecond());
 
@@ -23,11 +23,12 @@ public class PrometheusMetricsService {
         if (values.isEmpty()) {
             log.warn("⚠️ No data returned from Prometheus for query: {}", promQL);
 
-            return Double.MAX_VALUE;
+            return null;
         }
 
         return values.stream()
                 .mapToDouble(point -> Double.parseDouble(point.get(1)))
+                .filter(v -> v > 0)
                 .average()
                 .orElse(Double.MAX_VALUE);
     }
