@@ -1,0 +1,303 @@
+2025-07-04 02:52:58,712 INFO o.a.j.u.JMeterUtils: Setting Locale to en_EN
+2025-07-04 02:52:58,722 INFO o.a.j.JMeter: Loading user properties from: /opt/homebrew/Cellar/jmeter/5.6.3/libexec/bin/user.properties
+2025-07-04 02:52:58,723 INFO o.a.j.JMeter: Loading system properties from: /opt/homebrew/Cellar/jmeter/5.6.3/libexec/bin/system.properties
+2025-07-04 02:52:58,723 INFO o.a.j.JMeter: Setting JMeter property: targetHost=127.0.0.1
+2025-07-04 02:52:58,723 INFO o.a.j.JMeter: Setting JMeter property: targetPort=8080
+2025-07-04 02:52:58,725 INFO o.a.j.JMeter: Copyright (c) 1998-2024 The Apache Software Foundation
+2025-07-04 02:52:58,726 INFO o.a.j.JMeter: Version 5.6.3
+2025-07-04 02:52:58,726 INFO o.a.j.JMeter: java.version=21.0.7
+2025-07-04 02:52:58,726 INFO o.a.j.JMeter: java.vm.name=OpenJDK 64-Bit Server VM
+2025-07-04 02:52:58,726 INFO o.a.j.JMeter: os.name=Mac OS X
+2025-07-04 02:52:58,726 INFO o.a.j.JMeter: os.arch=aarch64
+2025-07-04 02:52:58,726 INFO o.a.j.JMeter: os.version=15.5
+2025-07-04 02:52:58,726 INFO o.a.j.JMeter: file.encoding=UTF-8
+2025-07-04 02:52:58,726 INFO o.a.j.JMeter: java.awt.headless=true
+2025-07-04 02:52:58,726 INFO o.a.j.JMeter: Max memory     =1073741824
+2025-07-04 02:52:58,726 INFO o.a.j.JMeter: Available Processors =12
+2025-07-04 02:52:58,730 INFO o.a.j.JMeter: Default Locale=English (EN)
+2025-07-04 02:52:58,731 INFO o.a.j.JMeter: JMeter  Locale=English (EN)
+2025-07-04 02:52:58,731 INFO o.a.j.JMeter: JMeterHome=/opt/homebrew/Cellar/jmeter/5.6.3/libexec
+2025-07-04 02:52:58,731 INFO o.a.j.JMeter: user.dir  =/Users/diego/Desktop/ea-autoscaler/jmeter-output
+2025-07-04 02:52:58,731 INFO o.a.j.JMeter: PWD       =/Users/diego/Desktop/ea-autoscaler/jmeter-output
+2025-07-04 02:52:58,732 INFO o.a.j.JMeter: IP: 127.0.0.1 Name: Diegos-Mac-mini.local FullName: localhost
+2025-07-04 02:52:58,738 INFO o.a.j.s.FileServer: Default base='/Users/diego/Desktop/ea-autoscaler/jmeter-output'
+2025-07-04 02:52:58,739 INFO o.a.j.s.FileServer: Set new base='/Users/diego/Desktop/ea-autoscaler/src/main/resources/jmeter'
+2025-07-04 02:52:58,806 INFO o.a.j.s.SaveService: Testplan (JMX) version: 2.2. Testlog (JTL) version: 2.2
+2025-07-04 02:52:58,823 INFO o.a.j.s.SaveService: Using SaveService properties version 5.0
+2025-07-04 02:52:58,824 INFO o.a.j.s.SaveService: Using SaveService properties file encoding UTF-8
+2025-07-04 02:52:58,825 INFO o.a.j.s.SaveService: Loading file: /Users/diego/Desktop/ea-autoscaler/src/main/resources/jmeter/test.jmx
+2025-07-04 02:52:58,853 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/html is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2025-07-04 02:52:58,853 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xhtml+xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2025-07-04 02:52:58,853 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2025-07-04 02:52:58,853 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2025-07-04 02:52:58,853 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/vnd.wap.wml is org.apache.jmeter.protocol.http.parser.RegexpHTMLParser
+2025-07-04 02:52:58,853 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/css is org.apache.jmeter.protocol.http.parser.CssParser
+2025-07-04 02:52:58,857 INFO o.a.j.JMeter: Creating summariser <summary>
+2025-07-04 02:52:58,866 INFO o.a.j.e.StandardJMeterEngine: Running the test!
+2025-07-04 02:52:58,866 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2025-07-04 02:52:58,866 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2025-07-04 02:52:58,867 INFO o.a.j.e.u.CompoundVariable: Note: Function class names must contain the string: '.functions.'
+2025-07-04 02:52:58,867 INFO o.a.j.e.u.CompoundVariable: Note: Function class names must not contain the string: '.gui.'
+2025-07-04 02:52:58,889 INFO o.a.j.r.ClassFinder: Will scan jar /opt/homebrew/Cellar/jmeter/5.6.3/libexec/lib/ext/jmeter-plugins-manager-1.9.jar with filter ExtendsClassFilter [parents=[interface org.apache.jmeter.functions.Function], inner=false, contains=null, notContains=null]. Consider exposing JMeter plugins via META-INF/services, and add JMeter-Skip-Class-Scanning=true manifest attribute so JMeter can skip classfile scanning
+2025-07-04 02:52:58,925 INFO o.a.j.JMeter: Running test (1751615578925)
+2025-07-04 02:52:58,932 INFO o.a.j.e.StandardJMeterEngine: Starting ThreadGroup: 1 : Phase 1 - Stabilization
+2025-07-04 02:52:58,933 INFO o.a.j.e.StandardJMeterEngine: Starting 2 threads for group Phase 1 - Stabilization.
+2025-07-04 02:52:58,933 INFO o.a.j.e.StandardJMeterEngine: Thread will continue on error
+2025-07-04 02:52:58,933 INFO o.a.j.t.ThreadGroup: Starting thread group... number=1 threads=2 ramp-up=8 delayedStart=true
+2025-07-04 02:52:58,933 INFO o.a.j.t.ThreadGroup: Started thread group number 1
+2025-07-04 02:52:58,933 INFO o.a.j.e.StandardJMeterEngine: Waiting for thread group: Phase 1 - Stabilization to finish before starting next group
+2025-07-04 02:52:58,935 INFO o.a.j.t.JMeterThread: Thread started: Phase 1 - Stabilization 1-1
+2025-07-04 02:52:58,942 INFO o.a.j.p.h.s.HTTPHCAbstractImpl: Local host = Diegos-Mac-mini.local
+2025-07-04 02:52:58,944 INFO o.a.j.p.h.s.HTTPHC4Impl: HTTP request retry count = 0
+2025-07-04 02:52:58,945 INFO o.a.j.s.SampleResult: Note: Sample TimeStamps are START times
+2025-07-04 02:52:58,945 INFO o.a.j.s.SampleResult: sampleresult.default.encoding is set to UTF-8
+2025-07-04 02:52:58,945 INFO o.a.j.s.SampleResult: sampleresult.useNanoTime=true
+2025-07-04 02:52:58,945 INFO o.a.j.s.SampleResult: sampleresult.nanoThreadSleep=5000
+2025-07-04 02:53:00,717 INFO o.a.j.r.Summariser: summary +      2 in 00:00:02 =    1.1/s Avg:   872 Min:   848 Max:   897 Err:     0 (0.00%) Active: 1 Started: 1 Finished: 0
+2025-07-04 02:53:06,939 INFO o.a.j.t.JMeterThread: Thread started: Phase 1 - Stabilization 1-2
+2025-07-04 02:53:19,409 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 1 - Stabilization 1-1
+2025-07-04 02:53:19,409 INFO o.a.j.t.JMeterThread: Thread finished: Phase 1 - Stabilization 1-1
+2025-07-04 02:53:19,422 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 1 - Stabilization 1-2
+2025-07-04 02:53:19,422 INFO o.a.j.t.JMeterThread: Thread finished: Phase 1 - Stabilization 1-2
+2025-07-04 02:53:19,423 INFO o.a.j.e.StandardJMeterEngine: Starting ThreadGroup: 2 : Phase 2 - Moderate
+2025-07-04 02:53:19,423 INFO o.a.j.e.StandardJMeterEngine: Starting 20 threads for group Phase 2 - Moderate.
+2025-07-04 02:53:19,423 INFO o.a.j.e.StandardJMeterEngine: Thread will continue on error
+2025-07-04 02:53:19,423 INFO o.a.j.t.ThreadGroup: Starting thread group... number=2 threads=20 ramp-up=8 delayedStart=true
+2025-07-04 02:53:19,424 INFO o.a.j.t.ThreadGroup: Started thread group number 2
+2025-07-04 02:53:19,424 INFO o.a.j.e.StandardJMeterEngine: Waiting for thread group: Phase 2 - Moderate to finish before starting next group
+2025-07-04 02:53:19,424 INFO o.a.j.t.JMeterThread: Thread started: Phase 2 - Moderate 2-1
+2025-07-04 02:53:19,848 INFO o.a.j.t.JMeterThread: Thread started: Phase 2 - Moderate 2-2
+2025-07-04 02:53:20,270 INFO o.a.j.t.JMeterThread: Thread started: Phase 2 - Moderate 2-3
+2025-07-04 02:53:20,695 INFO o.a.j.t.JMeterThread: Thread started: Phase 2 - Moderate 2-4
+2025-07-04 02:53:21,122 INFO o.a.j.t.JMeterThread: Thread started: Phase 2 - Moderate 2-5
+2025-07-04 02:53:21,546 INFO o.a.j.t.JMeterThread: Thread started: Phase 2 - Moderate 2-6
+2025-07-04 02:53:21,969 INFO o.a.j.t.JMeterThread: Thread started: Phase 2 - Moderate 2-7
+2025-07-04 02:53:22,395 INFO o.a.j.t.JMeterThread: Thread started: Phase 2 - Moderate 2-8
+2025-07-04 02:53:22,820 INFO o.a.j.t.JMeterThread: Thread started: Phase 2 - Moderate 2-9
+2025-07-04 02:53:23,244 INFO o.a.j.t.JMeterThread: Thread started: Phase 2 - Moderate 2-10
+2025-07-04 02:53:23,665 INFO o.a.j.t.JMeterThread: Thread started: Phase 2 - Moderate 2-11
+2025-07-04 02:53:24,084 INFO o.a.j.t.JMeterThread: Thread started: Phase 2 - Moderate 2-12
+2025-07-04 02:53:24,503 INFO o.a.j.t.JMeterThread: Thread started: Phase 2 - Moderate 2-13
+2025-07-04 02:53:24,921 INFO o.a.j.t.JMeterThread: Thread started: Phase 2 - Moderate 2-14
+2025-07-04 02:53:25,340 INFO o.a.j.t.JMeterThread: Thread started: Phase 2 - Moderate 2-15
+2025-07-04 02:53:25,763 INFO o.a.j.t.JMeterThread: Thread started: Phase 2 - Moderate 2-16
+2025-07-04 02:53:26,181 INFO o.a.j.t.JMeterThread: Thread started: Phase 2 - Moderate 2-17
+2025-07-04 02:53:26,602 INFO o.a.j.t.JMeterThread: Thread started: Phase 2 - Moderate 2-18
+2025-07-04 02:53:27,019 INFO o.a.j.t.JMeterThread: Thread started: Phase 2 - Moderate 2-19
+2025-07-04 02:53:27,429 INFO o.a.j.t.JMeterThread: Thread started: Phase 2 - Moderate 2-20
+2025-07-04 02:53:30,648 INFO o.a.j.r.Summariser: summary +     92 in 00:00:30 =    3.1/s Avg:  1529 Min:   769 Max:  5041 Err:     0 (0.00%) Active: 20 Started: 22 Finished: 2
+2025-07-04 02:53:30,648 INFO o.a.j.r.Summariser: summary =     94 in 00:00:32 =    3.0/s Avg:  1515 Min:   769 Max:  5041 Err:     0 (0.00%)
+2025-07-04 02:53:49,590 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 2 - Moderate 2-3
+2025-07-04 02:53:49,590 INFO o.a.j.t.JMeterThread: Thread finished: Phase 2 - Moderate 2-3
+2025-07-04 02:53:49,894 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 2 - Moderate 2-1
+2025-07-04 02:53:49,895 INFO o.a.j.t.JMeterThread: Thread finished: Phase 2 - Moderate 2-1
+2025-07-04 02:53:50,010 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 2 - Moderate 2-15
+2025-07-04 02:53:50,010 INFO o.a.j.t.JMeterThread: Thread finished: Phase 2 - Moderate 2-15
+2025-07-04 02:53:50,111 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 2 - Moderate 2-13
+2025-07-04 02:53:50,112 INFO o.a.j.t.JMeterThread: Thread finished: Phase 2 - Moderate 2-13
+2025-07-04 02:53:50,142 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 2 - Moderate 2-10
+2025-07-04 02:53:50,142 INFO o.a.j.t.JMeterThread: Thread finished: Phase 2 - Moderate 2-10
+2025-07-04 02:53:50,415 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 2 - Moderate 2-9
+2025-07-04 02:53:50,415 INFO o.a.j.t.JMeterThread: Thread finished: Phase 2 - Moderate 2-9
+2025-07-04 02:53:53,824 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 2 - Moderate 2-12
+2025-07-04 02:53:53,824 INFO o.a.j.t.JMeterThread: Thread finished: Phase 2 - Moderate 2-12
+2025-07-04 02:53:54,423 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 2 - Moderate 2-2
+2025-07-04 02:53:54,423 INFO o.a.j.t.JMeterThread: Thread finished: Phase 2 - Moderate 2-2
+2025-07-04 02:53:54,606 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 2 - Moderate 2-8
+2025-07-04 02:53:54,607 INFO o.a.j.t.JMeterThread: Thread finished: Phase 2 - Moderate 2-8
+2025-07-04 02:53:55,226 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 2 - Moderate 2-11
+2025-07-04 02:53:55,226 INFO o.a.j.t.JMeterThread: Thread finished: Phase 2 - Moderate 2-11
+2025-07-04 02:53:55,901 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 2 - Moderate 2-14
+2025-07-04 02:53:55,902 INFO o.a.j.t.JMeterThread: Thread finished: Phase 2 - Moderate 2-14
+2025-07-04 02:53:56,223 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 2 - Moderate 2-19
+2025-07-04 02:53:56,223 INFO o.a.j.t.JMeterThread: Thread finished: Phase 2 - Moderate 2-19
+2025-07-04 02:53:56,630 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 2 - Moderate 2-6
+2025-07-04 02:53:56,631 INFO o.a.j.t.JMeterThread: Thread finished: Phase 2 - Moderate 2-6
+2025-07-04 02:53:57,079 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 2 - Moderate 2-17
+2025-07-04 02:53:57,079 INFO o.a.j.t.JMeterThread: Thread finished: Phase 2 - Moderate 2-17
+2025-07-04 02:53:57,501 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 2 - Moderate 2-4
+2025-07-04 02:53:57,502 INFO o.a.j.t.JMeterThread: Thread finished: Phase 2 - Moderate 2-4
+2025-07-04 02:53:57,593 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 2 - Moderate 2-5
+2025-07-04 02:53:57,593 INFO o.a.j.t.JMeterThread: Thread finished: Phase 2 - Moderate 2-5
+2025-07-04 02:53:57,727 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 2 - Moderate 2-7
+2025-07-04 02:53:57,727 INFO o.a.j.t.JMeterThread: Thread finished: Phase 2 - Moderate 2-7
+2025-07-04 02:53:57,873 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 2 - Moderate 2-18
+2025-07-04 02:53:57,873 INFO o.a.j.t.JMeterThread: Thread finished: Phase 2 - Moderate 2-18
+2025-07-04 02:53:58,021 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 2 - Moderate 2-20
+2025-07-04 02:53:58,021 INFO o.a.j.t.JMeterThread: Thread finished: Phase 2 - Moderate 2-20
+2025-07-04 02:53:58,025 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 2 - Moderate 2-16
+2025-07-04 02:53:58,025 INFO o.a.j.t.JMeterThread: Thread finished: Phase 2 - Moderate 2-16
+2025-07-04 02:53:58,026 INFO o.a.j.e.StandardJMeterEngine: Starting ThreadGroup: 3 : Phase 4 - Hight Sustained
+2025-07-04 02:53:58,026 INFO o.a.j.e.StandardJMeterEngine: Starting 50 threads for group Phase 4 - Hight Sustained.
+2025-07-04 02:53:58,026 INFO o.a.j.e.StandardJMeterEngine: Thread will continue on error
+2025-07-04 02:53:58,026 INFO o.a.j.t.ThreadGroup: Starting thread group... number=3 threads=50 ramp-up=2 delayedStart=true
+2025-07-04 02:53:58,026 INFO o.a.j.t.ThreadGroup: Started thread group number 3
+2025-07-04 02:53:58,026 INFO o.a.j.e.StandardJMeterEngine: Waiting for thread group: Phase 4 - Hight Sustained to finish before starting next group
+2025-07-04 02:53:58,027 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-1
+2025-07-04 02:53:58,074 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-2
+2025-07-04 02:53:58,117 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-3
+2025-07-04 02:53:58,158 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-4
+2025-07-04 02:53:58,204 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-5
+2025-07-04 02:53:58,249 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-6
+2025-07-04 02:53:58,292 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-7
+2025-07-04 02:53:58,337 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-8
+2025-07-04 02:53:58,383 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-9
+2025-07-04 02:53:58,425 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-10
+2025-07-04 02:53:58,468 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-11
+2025-07-04 02:53:58,514 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-12
+2025-07-04 02:53:58,558 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-13
+2025-07-04 02:53:58,601 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-14
+2025-07-04 02:53:58,642 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-15
+2025-07-04 02:53:58,687 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-16
+2025-07-04 02:53:58,730 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-17
+2025-07-04 02:53:58,775 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-18
+2025-07-04 02:53:58,820 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-19
+2025-07-04 02:53:58,864 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-20
+2025-07-04 02:53:58,904 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-21
+2025-07-04 02:53:58,944 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-22
+2025-07-04 02:53:58,988 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-23
+2025-07-04 02:53:59,028 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-24
+2025-07-04 02:53:59,067 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-25
+2025-07-04 02:53:59,109 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-26
+2025-07-04 02:53:59,150 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-27
+2025-07-04 02:53:59,193 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-28
+2025-07-04 02:53:59,236 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-29
+2025-07-04 02:53:59,279 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-30
+2025-07-04 02:53:59,321 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-31
+2025-07-04 02:53:59,364 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-32
+2025-07-04 02:53:59,406 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-33
+2025-07-04 02:53:59,444 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-34
+2025-07-04 02:53:59,484 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-35
+2025-07-04 02:53:59,526 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-36
+2025-07-04 02:53:59,568 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-37
+2025-07-04 02:53:59,607 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-38
+2025-07-04 02:53:59,646 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-39
+2025-07-04 02:53:59,685 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-40
+2025-07-04 02:53:59,724 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-41
+2025-07-04 02:53:59,759 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-42
+2025-07-04 02:53:59,797 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-43
+2025-07-04 02:53:59,833 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-44
+2025-07-04 02:53:59,867 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-45
+2025-07-04 02:53:59,902 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-46
+2025-07-04 02:53:59,936 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-47
+2025-07-04 02:53:59,969 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-48
+2025-07-04 02:54:00,003 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-49
+2025-07-04 02:54:00,029 INFO o.a.j.t.JMeterThread: Thread started: Phase 4 - Hight Sustained 3-50
+2025-07-04 02:54:01,055 INFO o.a.j.r.Summariser: summary +    127 in 00:00:30 =    4.2/s Avg:  4082 Min:   768 Max: 13508 Err:     0 (0.00%) Active: 50 Started: 72 Finished: 22
+2025-07-04 02:54:01,055 INFO o.a.j.r.Summariser: summary =    221 in 00:01:02 =    3.6/s Avg:  2990 Min:   768 Max: 13508 Err:     0 (0.00%)
+2025-07-04 02:54:30,080 INFO o.a.j.r.Summariser: summary +    203 in 00:00:29 =    7.0/s Avg:  6261 Min:   775 Max: 19008 Err:     0 (0.00%) Active: 50 Started: 72 Finished: 22
+2025-07-04 02:54:30,081 INFO o.a.j.r.Summariser: summary =    424 in 00:01:31 =    4.7/s Avg:  4556 Min:   768 Max: 19008 Err:     0 (0.00%)
+2025-07-04 02:54:43,093 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-23
+2025-07-04 02:54:43,094 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-23
+2025-07-04 02:54:43,111 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-13
+2025-07-04 02:54:43,111 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-13
+2025-07-04 02:54:43,416 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-27
+2025-07-04 02:54:43,416 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-27
+2025-07-04 02:54:43,429 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-34
+2025-07-04 02:54:43,429 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-34
+2025-07-04 02:54:43,494 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-42
+2025-07-04 02:54:43,494 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-42
+2025-07-04 02:54:43,505 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-8
+2025-07-04 02:54:43,505 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-8
+2025-07-04 02:54:44,039 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-16
+2025-07-04 02:54:44,040 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-16
+2025-07-04 02:54:44,047 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-14
+2025-07-04 02:54:44,047 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-14
+2025-07-04 02:54:44,081 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-7
+2025-07-04 02:54:44,081 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-7
+2025-07-04 02:54:44,090 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-22
+2025-07-04 02:54:44,090 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-22
+2025-07-04 02:54:44,127 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-19
+2025-07-04 02:54:44,127 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-19
+2025-07-04 02:54:44,278 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-30
+2025-07-04 02:54:44,278 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-30
+2025-07-04 02:54:44,300 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-4
+2025-07-04 02:54:44,300 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-4
+2025-07-04 02:54:44,323 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-26
+2025-07-04 02:54:44,323 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-26
+2025-07-04 02:54:44,335 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-3
+2025-07-04 02:54:44,335 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-3
+2025-07-04 02:54:44,485 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-12
+2025-07-04 02:54:44,485 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-12
+2025-07-04 02:54:44,543 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-2
+2025-07-04 02:54:44,543 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-2
+2025-07-04 02:54:44,576 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-17
+2025-07-04 02:54:44,576 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-17
+2025-07-04 02:54:44,585 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-48
+2025-07-04 02:54:44,585 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-48
+2025-07-04 02:54:44,786 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-43
+2025-07-04 02:54:44,786 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-43
+2025-07-04 02:54:45,020 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-50
+2025-07-04 02:54:45,020 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-50
+2025-07-04 02:54:45,238 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-36
+2025-07-04 02:54:45,238 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-36
+2025-07-04 02:54:45,685 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-40
+2025-07-04 02:54:45,685 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-40
+2025-07-04 02:54:45,815 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-29
+2025-07-04 02:54:45,815 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-29
+2025-07-04 02:54:45,984 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-21
+2025-07-04 02:54:45,984 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-38
+2025-07-04 02:54:45,985 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-38
+2025-07-04 02:54:45,985 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-21
+2025-07-04 02:54:47,704 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-37
+2025-07-04 02:54:47,704 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-37
+2025-07-04 02:54:47,996 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-25
+2025-07-04 02:54:47,996 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-25
+2025-07-04 02:54:48,515 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-28
+2025-07-04 02:54:48,515 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-28
+2025-07-04 02:54:49,510 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-10
+2025-07-04 02:54:49,510 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-10
+2025-07-04 02:54:50,902 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-49
+2025-07-04 02:54:50,902 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-49
+2025-07-04 02:54:51,409 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-20
+2025-07-04 02:54:51,409 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-20
+2025-07-04 02:54:51,809 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-45
+2025-07-04 02:54:51,810 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-45
+2025-07-04 02:54:52,994 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-18
+2025-07-04 02:54:52,994 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-18
+2025-07-04 02:54:55,109 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-46
+2025-07-04 02:54:55,109 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-1
+2025-07-04 02:54:55,110 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-46
+2025-07-04 02:54:55,110 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-1
+2025-07-04 02:54:57,774 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-5
+2025-07-04 02:54:57,774 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-5
+2025-07-04 02:54:58,468 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-44
+2025-07-04 02:54:58,468 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-44
+2025-07-04 02:54:58,666 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-35
+2025-07-04 02:54:58,667 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-35
+2025-07-04 02:54:59,017 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-31
+2025-07-04 02:54:59,017 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-31
+2025-07-04 02:54:59,410 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-32
+2025-07-04 02:54:59,410 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-32
+2025-07-04 02:54:59,807 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-39
+2025-07-04 02:54:59,808 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-39
+2025-07-04 02:54:59,866 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-6
+2025-07-04 02:54:59,866 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-6
+2025-07-04 02:54:59,872 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-11
+2025-07-04 02:54:59,872 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-11
+2025-07-04 02:54:59,872 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-47
+2025-07-04 02:54:59,872 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-47
+2025-07-04 02:54:59,893 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-33
+2025-07-04 02:54:59,893 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-33
+2025-07-04 02:54:59,904 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-41
+2025-07-04 02:54:59,904 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-24
+2025-07-04 02:54:59,904 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-41
+2025-07-04 02:54:59,904 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-24
+2025-07-04 02:55:00,086 INFO o.a.j.r.Summariser: summary +    150 in 00:00:30 =    5.0/s Avg:  8305 Min:   770 Max: 26516 Err:     0 (0.00%) Active: 2 Started: 72 Finished: 70
+2025-07-04 02:55:00,087 INFO o.a.j.r.Summariser: summary =    574 in 00:02:01 =    4.7/s Avg:  5536 Min:   768 Max: 26516 Err:     0 (0.00%)
+2025-07-04 02:55:00,088 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-15
+2025-07-04 02:55:00,089 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-15
+2025-07-04 02:55:00,093 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 4 - Hight Sustained 3-9
+2025-07-04 02:55:00,093 INFO o.a.j.t.JMeterThread: Thread finished: Phase 4 - Hight Sustained 3-9
+2025-07-04 02:55:00,094 INFO o.a.j.e.StandardJMeterEngine: Starting ThreadGroup: 4 : Phase 6 - Repose
+2025-07-04 02:55:00,094 INFO o.a.j.e.StandardJMeterEngine: Starting 1 threads for group Phase 6 - Repose.
+2025-07-04 02:55:00,094 INFO o.a.j.e.StandardJMeterEngine: Thread will continue on error
+2025-07-04 02:55:00,094 INFO o.a.j.t.ThreadGroup: Starting thread group... number=4 threads=1 ramp-up=8 delayedStart=true
+2025-07-04 02:55:00,095 INFO o.a.j.t.ThreadGroup: Started thread group number 4
+2025-07-04 02:55:00,095 INFO o.a.j.e.StandardJMeterEngine: All thread groups have been started
+2025-07-04 02:55:00,096 INFO o.a.j.t.JMeterThread: Thread started: Phase 6 - Repose 4-1
+2025-07-04 02:55:20,714 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Phase 6 - Repose 4-1
+2025-07-04 02:55:20,714 INFO o.a.j.t.JMeterThread: Thread finished: Phase 6 - Repose 4-1
+2025-07-04 02:55:20,715 INFO o.a.j.e.StandardJMeterEngine: Notifying test listeners of end of test
+2025-07-04 02:55:20,716 INFO o.a.j.r.Summariser: summary +     24 in 00:00:21 =    1.2/s Avg:  1743 Min:   827 Max: 21225 Err:     0 (0.00%) Active: 0 Started: 73 Finished: 73
+2025-07-04 02:55:20,716 INFO o.a.j.r.Summariser: summary =    598 in 00:02:22 =    4.2/s Avg:  5384 Min:   768 Max: 26516 Err:     0 (0.00%)

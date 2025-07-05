@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: ea-autoscaler
+server:
+  port: 8082
+jmeter:
+  testPlanPath: src/main/resources/jmeter/test.jmx
+prometheus:
+  port: 50305
+k8s:
+  namespace: tesis-simulation
+  deploymentName: fibonacci-deployment
+  hpaName: fibonacci-hpa
+  waitTimeoutSeconds: 120
+  deploymentMonitor:
+    readinessPollInterval: 10000
+    hashPollInterval: 1000
+ga:
+  populationSize: 10
+  generations: 10
+  operators:
+    mutation:
+      rate: 0.2
+    selection:
+      sampleSize: 2
+logging:
+  level:
+    com.uni.ea_autoscaler.jmeter: DEBUG
+    com.uni.ea_autoscaler.prometheus: DEBUG
